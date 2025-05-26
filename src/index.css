@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 30 63 32; /* #1E3F20 */
+    --color-secondary: 52 88 48; /* #345830 */
+    --color-accent: 181 162 101; /* #B5A265 */
+    --color-light: 238 237 222; /* #EEEDDE */
+    --color-dark: 20 30 20; /* #141E14 */
+    --color-warning: 213 145 73; /* #D5914A */
+    --color-danger: 153 53 53; /* #993535 */
+    --color-success: 83 140 89; /* #538C59 */
+  }
+
+  body {
+    @apply font-roboto bg-light text-dark;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-oswald font-bold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-light hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-light hover:bg-secondary/90;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-dark hover:bg-accent/90;
+  }
+
+  .card {
+    @apply bg-white border-l-4 border-primary rounded-md shadow-md p-4;
+  }
+
+  .military-border {
+    @apply border-2 border-dashed border-accent/70;
+  }
+
+  .military-input {
+    @apply bg-light border-2 border-primary/30 focus:border-primary rounded-md px-3 py-2 outline-none;
+  }
+
+  .military-select {
+    @apply bg-light border-2 border-primary/30 focus:border-primary rounded-md px-3 py-2 outline-none;
+  }
+
+  .military-table {
+    @apply w-full border-collapse;
+  }
+
+  .military-table th {
+    @apply bg-primary text-light font-bold py-2 px-4 text-left;
+  }
+
+  .military-table tr:nth-child(even) {
+    @apply bg-light/50;
+  }
+
+  .military-table tr:hover {
+    @apply bg-accent/10;
+  }
+
+  .military-table td {
+    @apply py-2 px-4 border-b border-primary/20;
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 text-light hover:bg-primary/50 transition-colors duration-200;
+  }
+
+  .sidebar-item.active {
+    @apply bg-accent text-dark font-medium;
+  }
+
+  .camo-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231e3f20' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+}
