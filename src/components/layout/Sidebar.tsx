@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
-  HomeIcon, 
-  UsersIcon, 
-  GraduationCapIcon, 
+  HomeIcon,
+  Users2Icon,
+  GraduationCapIcon,
   BookOpenIcon,
   ClipboardCheckIcon,
   UserIcon,
@@ -12,7 +12,13 @@ import {
   ClubIcon,
   FileBarChart2Icon,
   ChevronsLeft,
-  ChevronsRight
+  ChevronsRight,
+  ShieldIcon,
+  UsersIcon,
+  HeartHandshakeIcon,
+  BookmarkIcon,
+  ScrollIcon,
+  CheckSquareIcon
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -21,6 +27,24 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
+  const menuItems = [
+    { path: '/', icon: HomeIcon, label: 'Painel' },
+    { path: '/diretores', icon: ShieldIcon, label: 'Diretores' },
+    { path: '/turmas', icon: Users2Icon, label: 'Turmas' },
+    { path: '/responsaveis', icon: HeartHandshakeIcon, label: 'Responsáveis' },
+    { path: '/alunos', icon: UserIcon, label: 'Alunos' },
+    { path: '/professores', icon: GraduationCapIcon, label: 'Professores' },
+    { path: '/clubes', icon: ClubIcon, label: 'Clubes' },
+    { path: '/disciplinas', icon: BookOpenIcon, label: 'Disciplinas' },
+    { path: '/notas', icon: ScrollIcon, label: 'Notas' },
+    { path: '/lancamentos-nota', icon: ClipboardCheckIcon, label: 'Lançamento de Nota' },
+    { path: '/presencas', icon: CalendarIcon, label: 'Presenças' },
+    { path: '/fardamentos', icon: ShirtIcon, label: 'Fardamentos' },
+    { path: '/farda-aluno', icon: BookmarkIcon, label: 'Farda-Aluno' },
+    { path: '/clube-aluno', icon: UsersIcon, label: 'Clube-Aluno' },
+    { path: '/matriculas', icon: CheckSquareIcon, label: 'Matrículas' }
+  ];
+
   return (
     <aside 
       className={`fixed left-0 top-0 h-screen bg-primary text-light transition-all duration-300 z-10 ${
@@ -30,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
       <div className="flex items-center justify-between h-16 px-4 bg-dark">
         {isOpen && (
           <div className="flex items-center gap-2">
-            <GraduationCapIcon className="text-accent" size={24} />
+            <GraduationCapIcon className="text-accent\" size={24} />
             <span className="font-oswald text-xl tracking-wider text-light">CM SISTEMA</span>
           </div>
         )}
@@ -40,116 +64,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         </button>
       </div>
 
-      <nav className="mt-4">
-        <NavLink 
-          to="/" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <HomeIcon size={20} />
-          {isOpen && <span>Painel</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/turmas" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <UsersIcon size={20} />
-          {isOpen && <span>Turmas</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/alunos" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <UserIcon size={20} />
-          {isOpen && <span>Alunos</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/professores" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <GraduationCapIcon size={20} />
-          {isOpen && <span>Professores</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/disciplinas" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <BookOpenIcon size={20} />
-          {isOpen && <span>Disciplinas</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/notas" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <ClipboardCheckIcon size={20} />
-          {isOpen && <span>Notas</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/presenca" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <CalendarIcon size={20} />
-          {isOpen && <span>Presença</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/matriculas" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <FileBarChart2Icon size={20} />
-          {isOpen && <span>Matrículas</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/clube" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <ClubIcon size={20} />
-          {isOpen && <span>Clube</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/fardamento" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <ShirtIcon size={20} />
-          {isOpen && <span>Fardamento</span>}
-        </NavLink>
-
-        <NavLink 
-          to="/relatorios" 
-          className={({ isActive }) => 
-            `sidebar-item ${isActive ? 'active' : ''}`
-          }
-        >
-          <FileBarChart2Icon size={20} />
-          {isOpen && <span>Relatórios</span>}
-        </NavLink>
+      <nav className="mt-4 overflow-y-auto h-[calc(100vh-4rem)]">
+        {menuItems.map((item) => (
+          <NavLink 
+            key={item.path}
+            to={item.path} 
+            className={({ isActive }) => 
+              `sidebar-item ${isActive ? 'active' : ''}`
+            }
+          >
+            <item.icon size={20} />
+            {isOpen && <span>{item.label}</span>}
+          </NavLink>
+        ))}
       </nav>
 
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-dark/30">

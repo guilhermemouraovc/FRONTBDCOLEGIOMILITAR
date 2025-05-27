@@ -1,143 +1,67 @@
 import axios from 'axios';
-import { ApiResponse, PaginatedResponse } from '../types';
+import { ApiResponse } from '../types';
 
-// Create axios instance with base URL
 const api = axios.create({
   baseURL: 'http://localhost:8080',
-  headers: {
-    'Content-Type': 'application/json',
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: false
+});
+
+export default api;
+
+// CRUD simplificado
+export const crud = {
+  list: async <T>(endpoint: string) => {
+    const response = await api.get<T[]>(endpoint);
+    return response.data;
   },
-});
-
-// Request interceptor to add auth token
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  get: async <T>(endpoint: string, id: number) => {
+    const response = await api.get<T>(`${endpoint}/${id}`);
+    return response.data;
+  },
+  create: async <T>(endpoint: string, data: any) => {
+    const response = await api.post<T>(endpoint, data);
+    return response.data;
+  },
+  update: async <T>(endpoint: string, id: number, data: any) => {
+    const response = await api.put<T>(`${endpoint}/${id}`, data);
+    return response.data;
+  },
+  delete: async (endpoint: string, id: number) => {
+    await api.delete(`${endpoint}/${id}`);
   }
-  return config;
-});
+};
 
-// Response interceptor for error handling
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Redirect to login if unauthorized
-      localStorage.removeItem('authToken');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
-
-// Generic GET method
+// 🔥 Função fetchData exportada para dashboardService.ts
 export async function fetchData<T>(endpoint: string): Promise<ApiResponse<T>> {
   try {
     const response = await api.get<T>(endpoint);
     return {
       data: response.data,
-      status: response.status,
+      status: response.status
     };
   } catch (error: any) {
     return {
       data: {} as T,
       status: error.response?.status || 500,
-      error: error.response?.data?.message || 'Erro ao buscar dados',
+      error: error.response?.data?.message || 'Erro ao buscar dados'
     };
   }
 }
 
-// Generic GET method with pagination
-export async function fetchPaginatedData<T>(
-  endpoint: string,
-  page = 0,
-  size = 10
-): Promise<ApiResponse<PaginatedResponse<T>>> {
+// 🔥 Função postData exportada para authService.ts
+export async function postData<T, U>(endpoint: string, data: T): Promise<ApiResponse<U>> {
   try {
-    const response = await api.get<PaginatedResponse<T>>(
-      `${endpoint}?page=${page}&size=${size}`
-    );
+    const response = await api.post<U>(endpoint, data);
     return {
       data: response.data,
-      status: response.status,
+      status: response.status
     };
   } catch (error: any) {
     return {
-      data: {
-        content: [],
-        totalElements: 0,
-        totalPages: 0,
-        size: 0,
-        number: 0,
-        first: true,
-        last: true,
-      },
+      data: {} as U,
       status: error.response?.status || 500,
-      error: error.response?.data?.message || 'Erro ao buscar dados paginados',
+      error: error.response?.data?.message || 'Erro ao enviar dados'
     };
   }
 }
-
-// Generic POST method
-export async function postData<T, R>(
-  endpoint: string,
-  data: T
-): Promise<ApiResponse<R>> {
-  try {
-    const response = await api.post<R>(endpoint, data);
-    return {
-      data: response.data,
-      status: response.status,
-    };
-  } catch (error: any) {
-    return {
-      data: {} as R,
-      status: error.response?.status || 500,
-      error: error.response?.data?.message || 'Erro ao enviar dados',
-    };
-  }
-}
-
-// Generic PUT method
-export async function updateData<T, R>(
-  endpoint: string,
-  id: number,
-  data: T
-): Promise<ApiResponse<R>> {
-  try {
-    const response = await api.put<R>(`${endpoint}/${id}`, data);
-    return {
-      data: response.data,
-      status: response.status,
-    };
-  } catch (error: any) {
-    return {
-      data: {} as R,
-      status: error.response?.status || 500,
-      error: error.response?.data?.message || 'Erro ao atualizar dados',
-    };
-  }
-}
-
-// Generic DELETE method
-export async function deleteData(
-  endpoint: string,
-  id: number
-): Promise<ApiResponse<void>> {
-  try {
-    const response = await api.delete(`${endpoint}/${id}`);
-    return {
-      data: undefined,
-      status: response.status,
-    };
-  } catch (error: any) {
-    return {
-      data: undefined,
-      status: error.response?.status || 500,
-      error: error.response?.data?.message || 'Erro ao excluir dados',
-    };
-  }
-}
-
-export default api;
