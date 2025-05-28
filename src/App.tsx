@@ -6,7 +6,16 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
 import DiretoresPage from './pages/diretores/DiretoresPage';
-
+import TurmaPage from './pages/turmas/TurmaPage';
+import ResponsavelPage from './pages/responsaveis/ResponsavelPage';
+import AlunosPage from './pages/alunos/AlunoPage';
+import ProfessorPage from './pages/professores/ProfessorPage';
+import ClubePage from './pages/clubes/ClubePage';
+import DisciplinaPage from './pages/disciplinas/DisciplinaPage'; 
+import NotaPage from './pages/notas/NotaPage';
+import PesoPage from './pages/pesos/PesoPage';
+import LancamentoNotaPage from './pages/lancamentos-nota/LancamentoNotaPage';
+import FardamentoPage from './pages/fardamentos/FardamentoPage';
 function App() {
   return (
     <Router>
@@ -19,18 +28,25 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/diretores" element={<DiretoresPage />} />
+            <Route path="/turmas" element={<TurmaPage />} />
+            <Route path="/responsaveis" element={<ResponsavelPage />} />
+            <Route path="/alunos" element={<AlunosPage />} />
+            <Route path="/professores" element={<ProfessorPage />} />
+            <Route path="/clubes" element={<ClubePage />} />
+            <Route path="/disciplinas" element={<DisciplinaPage />} />
+            <Route path="/notas" element={<NotaPage />} />
+            <Route path="/pesos" element={<PesoPage />} />
+            <Route path="/lancamentos-nota" element={<LancamentoNotaPage />} />
+            <Route path="/fardamentos" element={<FardamentoPage />} />
+            
+            {/* Redirect root to dashboard */}
             
             {/* Placeholder routes for future implementation */}
-            <Route path="/turmas" element={<div className="p-6">Página de Turmas em desenvolvimento</div>} />
-            <Route path="/responsaveis" element={<div className="p-6">Página de Responsáveis em desenvolvimento</div>} />
-            <Route path="/alunos" element={<div className="p-6">Página de Alunos em desenvolvimento</div>} />
-            <Route path="/professores" element={<div className="p-6">Página de Professores em desenvolvimento</div>} />
-            <Route path="/clubes" element={<div className="p-6">Página de Clubes em desenvolvimento</div>} />
-            <Route path="/disciplinas" element={<div className="p-6">Página de Disciplinas em desenvolvimento</div>} />
-            <Route path="/notas" element={<div className="p-6">Página de Notas em desenvolvimento</div>} />
+            
+            
             <Route path="/lancamentos-nota" element={<div className="p-6">Página de Lançamentos de Nota em desenvolvimento</div>} />
-            <Route path="/presencas" element={<div className="p-6">Página de Presenças em desenvolvimento</div>} />
-            <Route path="/fardamentos" element={<div className="p-6">Página de Fardamentos em desenvolvimento</div>} />
+            
+            
             <Route path="/farda-aluno" element={<div className="p-6">Página de Farda-Aluno em desenvolvimento</div>} />
             <Route path="/clube-aluno" element={<div className="p-6">Página de Clube-Aluno em desenvolvimento</div>} />
             <Route path="/matriculas" element={<div className="p-6">Página de Matrículas em desenvolvimento</div>} />
